@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Movies Dashboard</title>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Movies by Genre</h1>
+
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>Genre</th>
+      <th>Count</th>
+    </tr>
+    {% for row in data_bar %}
+    <tr>
+      <td>{{ row.category }}</td>
+      <td>{{ row.total_count }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="2">No genre data found.</td></tr>
+    {% endfor %}
+  </table>
+
+  <h2>Chart — Movies by Genre</h2>
+  <canvas id="genreChart" width="400" height="200"></canvas>
+
+  <h1>Movies Per Year</h1>
+
+  <table border="1" cellpadding="5">
+    <tr>
+      <th>Year</th>
+      <th>Count</th>
+    </tr>
+    {% for row in data_line %}
+    <tr>
+      <td>{{ row.year }}</td>
+      <td>{{ row.total_count }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="2">No time-series data found.</td></tr>
+    {% endfor %}
+  </table>
+
+  <h2>Chart — Movies Per Year</h2>
+  <canvas id="yearChart" width="700" height="300"></canvas>
+
+  <script>
+    // Genre chart data (expects row.category and row.total_count)
+    const labelsBar = {{ (data_bar or []) | map(attribute='category') | list | tojson }};
+    const valuesBar = {{ (data_bar or []) | map(attribute='total_count') | list | tojson }};
+
+    const ctxBar = document.getElementById('genreChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'doughnut',
+      data: {
+        labels: labelsBar,
+        datasets: [{
+          label: 'Count',
+          data: valuesBar,
+          backgroundColor: labelsBar.map((_, i) => `hsl(${(i*55)%360} 70% 60%)`)
+        }]
+      },
+      options: { responsive: true }
+    });
+
+    // Year chart data (expects row.year and row.total_count)
+    const labelsLine = {{ (data_line or []) | map(attribute='year') | list | tojson }};
+    const valuesLine = {{ (data_line or []) | map(attribute='total_count') | list | tojson }};
+
+    const ctxLine = document.getElementById('yearChart').getContext('2d');
+    new Chart(ctxLine, {
+      type: 'line',
+      data: {
+        labels: labelsLine,
+        datasets: [{
+          label: 'Movies Count',
+          data: valuesLine,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.2,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

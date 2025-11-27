@@ -1,39 +1,45 @@
-# README
+# Movies IMDb Dataset Project
 
-## Set up
+This is a project that sets up a relational database for IMDb movie data, runs some SQL queries for analytics, and serves it all up in a simple Flask dashboard.
 
-### DB
+## What This Does
+We pull in IMDb data (movies, genres, directors, etc.), store it in MySQL, and use SQL for insights like top-rated films or genre trends. The Flask app gives you a dashboard with charts and tables to visualize things.
 
-- Run the file "Movies2324DB.sql" in MySQL to create DB and load data.
+## Understand The Data
 
-### 1. Create a virtual environment
+[Open in Colab](https://colab.research.google.com/drive/1-R6gFW4jzN6tqRfCsbaHk23vLf59FMdU?usp=sharing)
 
-```bash
-python3 -m venv .venv
-```
+## Setup
 
-### 2. Activate the environment
+### Database
+First, get the database going. Open MySQL and run the `db.sql` script. That'll create the database, tables, and load the data from the CSV files (assuming they're in `~/Desktop/movies_2324/data/`).
 
-**macOS / Linux:**
+### Python Environment
+To run the Flask app:
 
-```bash
-source .venv/bin/activate
-```
+1. Create a virtual environment:  
+   ```bash
+   python3 -m venv .venv
+   ```
 
-**Windows:**
+2. Activate it:  
+   
+- On macOS or Linux:  
+     ```bash
+     source .venv/bin/activate
+     ```  
+   
+- On Windows:  
+     ```cmd
+     .venv\Scripts\activate.bat
+     ```
 
-```cmd
-.venv\Scripts\activate.bat
-```
+3. Install the dependencies:  
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Run the app
-
-```bash
-python3 app.py
-```
+4. Start the app:  
+   ```bash
+   python3 app.py
+   ```

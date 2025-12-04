@@ -111,10 +111,9 @@ LIMIT 10;
 EXPLAIN ANALYZE
 SELECT * FROM TopRatedDirectors;
 
-CREATE INDEX idx_ratings_averageRating ON Ratings(averageRating);
-CREATE INDEX idx_ratings_movieID ON Ratings(movieID);
-CREATE INDEX idx_directors_nameID ON Directors(nameID);
-CREATE INDEX idx_directors_movieID ON Directors(movieID);
+CREATE INDEX idx_ratings_movieid_avgr ON Ratings (movieID, averageRating);
+CREATE INDEX idx_directors_nameid_movieid ON Directors (nameID, movieID);
+CREATE INDEX idx_names_nameid_primaryname ON Names (nameID, primaryName);
 
 EXPLAIN ANALYZE
 SELECT * FROM TopRatedDirectors;

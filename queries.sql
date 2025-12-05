@@ -94,7 +94,8 @@ JOIN Ratings r ON m.movieID = r.movieID
 WHERE r.numVotes > 200000;
 
 -- Question 8: Create a view for top-rated directors and explain its performance 
--- with indexing. (View creation, then EXPLAIN and EXPLAIN ANALYZE on a query using it to compare performance)
+-- with indexing. (View creation, then EXPLAIN and EXPLAIN ANALYZE on a query using
+-- it to compare performance)
 CREATE VIEW TopRatedDirectors AS
 SELECT 
 	n.primaryName, 
@@ -120,3 +121,5 @@ SELECT * FROM TopRatedDirectors;
 
 EXPLAIN 
 SELECT * FROM TopRatedDirectors;
+
+

@@ -51,7 +51,7 @@ def index():
     """
     data_top_rated = query(sql_top_rated)
 
-    # 4. Distribution of Movie Ratings (new pie chart)
+    # 4. Distribution of Movie Ratings (pie chart)
     sql_rating_dist = """
         WITH Buckets AS (
             SELECT 
